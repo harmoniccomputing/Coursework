@@ -1,0 +1,14 @@
+A 80 | A- 70| B 60 | B- 50 | C 40  | C- 28| D 18|  
+
+
+All the best for the endsem tomorrow !!
+
+The skeleton of the Question paper is as follows:
+
+5 mks Section: Q1)  MGF Q2) Obtain pdf of  function of a random variable.
+
+8 mks Section: Q1) MLE/MSE Q2) MLE Q3) Convergence Q4) Simulation Q5)  pdf of functions of random variables.
+
+10mks Section: Q1) MLE Q2) MAP (conjugate prior) Q3) Markov Chains Q4) Gaussian/Random Vectors Q5) MGF.
+
+
