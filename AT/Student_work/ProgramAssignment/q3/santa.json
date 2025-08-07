@@ -1,0 +1,20 @@
+{
+  "axiom": "F",
+  "productions": {
+    "F": "F+F--F+F"
+  },
+  "finals": {
+    "+": {
+      "action": "rotate",
+      "angle": 80
+    },
+    "-": {
+      "action": "rotate",
+      "angle": -80
+    },
+    "F": {
+      "action": "draw",
+      "length": "30 / (iterations + 1)"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Minimal Lindenmayer usage</title>
+
+</head>
+
+<body>
+
+  <h1>Content without context is noise (9 iterations)</h1>
+  <canvas id="canvas" width="900" height="800"></canvas>
+  <label for="textresult">string result:</label>
+  <textarea id="textresult" rows="40" cols="80"></textarea>
+
+  <script src="lindenmayer.js"></script>
+  <script type="text/javascript">
+    function context_sensitive_rule(productions, input) {
+      let output = "";
+      for (let i = 0; i < input.length; i++) {
+        left = input[i - 1];
+        current = input[i];
+        right = input[i + 1];
+        next_right = input[i + 2];
+        if (left === 'F' && current === 'F' && right === '-' && next_right === 'F') {
+          output += 'F-+F+F';
+          i += 2;
+        } else if (productions[current]) {
+          output += productions[current];
+        } else {
+          output += current;
+        }
+      }
+      return output;
+    }
+
+    function iterate_LSystem(axiom, productions, iterations) {
+      let current = axiom;
+      for (let i = 0; i < iterations; i++) {
+        current = context_sensitive_rule(productions, current);
+      }
+      return current;
+    }
+
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext("2d");
+    var textresult = document.getElementById('textresult');
+    var iterations =9;
+
+    // translate so that tree is in center
+    // also rotate
+    ctx.translate(canvas.width / 1.6, canvas.height / 2);
+    ctx.rotate(Math.PI);
+
+    var tree = new LSystem({
+      axiom: 'F+F',
+      productions: {
+        'F': 'F - F + +F - F',
+        'FF - F': 'F - +F + F'
+      },
+      finals: {
+        'F': () => {
+          ctx.beginPath()
+          ctx.moveTo(0, 0)
+          ctx.lineTo(0, 25 / (tree.iterations + 1))
+          ctx.stroke()
+          ctx.translate(0, 25 / (tree.iterations + 1))
+        },
+        '+': () => { ctx.rotate((Math.PI / 180) * 90) },
+        '-': () => { ctx.rotate((Math.PI / 180) * -90) },
+        '[': () => { ctx.save() },
+        ']': () => { ctx.restore() }
+      }
+    });
+    tree.iterate(iterations);
+
+  /*   var result = iterateLSystem(tree.axiom, tree.productions, iterations);
+    textresult.value = result; */
+    textresult.value = tree.getString();
+    tree.final();
+  </script>
+</body>
+
+</html>

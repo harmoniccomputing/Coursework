@@ -1,0 +1,36 @@
+{
+  "axiom": "F",
+  "productions": {
+    "F": "X[+F]F[-F]YF",
+    "X": "XX",
+    "Y": "YY"
+  },
+  "finals": {
+    "F": {
+      "action": "draw",
+      "length": "30 / (iterations + 1)"
+    },
+    "X": {
+      "action": "draw",
+      "length": "30 / (iterations + 1)"
+    },
+    "Y": {
+      "action": "draw",
+      "length": "30 / (iterations + 1)"
+    },
+    "+": {
+      "action": "rotate",
+      "angle": 45
+    },
+    "-": {
+      "action": "rotate",
+      "angle": -45
+    },
+    "[": {
+      "action": "save"
+    },
+    "]": {
+      "action": "restore"
+    }
+  }
+}
